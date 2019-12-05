@@ -4,6 +4,15 @@ dist: trusty
 jdk:
   - oraclejdk8
 
-install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true
+# install安装，安装任何所需的依赖
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true
 
-script: mvn test
+# script脚本，运行构建脚本
+script:
+  - mvn test
+
+# 指定分支，只有指定的分支提交时才会运行脚本
+branches:
+  only:
+    - master
