@@ -1,5 +1,6 @@
 language: java
-
+# 切换travis之前的构建环境（Ubuntu Trusty 14.04版本）
+dist: trusty
 jdk:
   - oraclejdk8
 

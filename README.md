@@ -1,7 +1,7 @@
 # BMS 
 
 
-[![Build Status](https://travis-ci.org/NormanGyllenhaal/canal-client.svg?branch=master)](https://travis-ci.org/NormanGyllenhaal/canal-client)
+[![Build Status](https://travis-ci.org/maship/bms.svg?branch=master)](https://travis-ci.org/maship/bms)
 
 
 ## 介绍
