@@ -4,6 +4,11 @@ dist: trusty
 jdk:
   - oraclejdk8
 
+# 缓存
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+
 # install安装，安装任何所需的依赖
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true
