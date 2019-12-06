@@ -1,0 +1,13 @@
+version: '2.0'
+
+services:
+  bms:
+    image: 'maship/bms:latest'
+    container_name: bms
+    restart: on-failure:3
+    environment:
+      - serviceName=bms
+      - LOGDIR=/tmp/logs
+      - JAVA_OPTS=-Dfile.encoding=UTF-8 -Dsun.jun.encoding=UTF-8 -Dio.netty.leakDetectionLevel=advanced -Djava.security.egd=file:/dev/./urandom
+    ports:
+      - '8080:8080'
