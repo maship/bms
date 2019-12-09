@@ -1,7 +1,8 @@
 #!/bin/bash
 
-command -v git >/dev/null 2>&1 || { echo >&2 "required git but it's not installed. To: https://git-scm.com/"; exit 1; }
-command -v docker >/dev/null 2>&1 || { echo >&2 "required docker but it's not installed. To: https://www.docker.com/"; exit 1; }
+command -v git >/dev/null 2>&1 || { echo >&2 "\033[31m[ERROR] required git but it's not installed. To: https://git-scm.com/ \033[0m"; exit 1; }
+command -v mvn >/dev/null 2>&1 || { echo >&2 "\033[31m[ERROR] required git maven it's not installed. To: https://maven.apache.org/ \033[0m"; exit 1; }
+command -v docker >/dev/null 2>&1 || { echo >&2 "\033[31m[ERROR] required docker but it's not installed. To: https://www.docker.com/ \033[0m"; exit 1; }
 
 # 项目名
 serviceName=bms
@@ -14,7 +15,7 @@ gid=$(git rev-parse --short=7  HEAD)
 echo "short commit id :[$gid]"
 
 echo "\033[32m----- start mvn package -----\033[0m"
-mvn clean package -DskipTests
+mvn clean package -DskipTests || { echo >&2 "\033[31m[ERROR] mvn package failed, exit \033[0m"; exit 1; }
 mkdir docker/apps
 cp target/$serviceName.jar docker/apps/app.jar
 
