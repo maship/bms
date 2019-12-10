@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.maship</groupId>
 	<artifactId>bms</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>bms</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>jar</packaging>
@@ -47,6 +47,13 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>${druid.version}</version>
+		</dependency>
+
+		<!--JWT(Json Web Token)登录支持-->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.0</version>
 		</dependency>
 
 		<dependency>

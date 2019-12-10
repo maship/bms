@@ -25,4 +25,12 @@ public class CommonResult<T> {
     return new CommonResult<T>(iCode.getCode(), iCode.getMsg(), null);
   }
 
+  public static <T> CommonResult<T> unauthorized(String msg) {
+    return new CommonResult<T>(ResultCode.UNAUTHORIZED.getCode(), msg, null);
+  }
+
+  public static <T> CommonResult<T> forbidden(String msg) {
+    return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), msg, null);
+  }
+
 }

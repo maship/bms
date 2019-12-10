@@ -2,13 +2,17 @@ package com.maship.bms.controller;
 
 import com.maship.bms.common.req.LoginReq;
 import com.maship.bms.common.resp.CommonResult;
+import com.maship.bms.common.resp.ResultCode;
+import com.maship.bms.model.entity.User;
 import com.maship.bms.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by Clint
@@ -22,9 +26,22 @@ public class UserController {
   @Resource
   private UserService userService;
 
+  @Value("${jwt.tokenHead}")
+  private String tokenHead;
+
   @PostMapping("login")
-  public CommonResult<Boolean> login(@RequestBody LoginReq req) {
-    boolean f = userService.login(req);
-    return CommonResult.succ(f);
+  public CommonResult<Map<String, String>> login(@RequestBody LoginReq req) {
+    String token = userService.login(req);
+    Map<String, String> tokenMap = new HashMap<>();
+    tokenMap.put("token", token);
+    tokenMap.put("tokenHead", tokenHead);
+    return CommonResult.succ(tokenMap);
   }
+
+  @GetMapping("info")
+  public CommonResult<User> info(Principal principal) {
+    Optional<User> opt = userService.query(principal.getName());
+    return opt.map(CommonResult::succ).orElseGet(() -> CommonResult.fail(ResultCode.UNAUTHORIZED));
+  }
+
 }

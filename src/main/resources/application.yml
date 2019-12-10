@@ -16,7 +16,7 @@ spring:
   datasource:
     username: root
     password: 123
-    url: jdbc:mysql://132.232.80.206:3316/bms?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://132.232.80.206:3316/bms?useUnicode=true&characterEncoding=utf8&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -59,3 +59,8 @@ spring:
         # 忽略过滤格式
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
 
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mySecret           #JWT加解密使用的密钥
+  expiration: 604800         #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer          #JWT负载中拿到开头

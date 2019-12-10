@@ -12,7 +12,7 @@ harbor="docker.io/maship"
 echo -e "\033[32m----- build $serviceName start -----\033[0m"
 
 gid=$(git rev-parse --short=7  HEAD)
-echo "short commit id :[$gid]"
+echo "short commit id: $gid"
 
 echo -e "\033[32m----- start mvn package -----\033[0m"
 mvn clean package -DskipTests || { echo >&2 -e "\033[31m[ERROR] mvn package failed, exit \033[0m"; exit 1; }

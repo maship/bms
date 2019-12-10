@@ -1,13 +1,21 @@
 package com.maship.bms.service.impl;
 
+import com.maship.bms.chain.BmsUserDetailsService;
+import com.maship.bms.chain.JwtTokenUtil;
 import com.maship.bms.model.dao.UserDao;
+import com.maship.bms.model.entity.Permission;
 import com.maship.bms.model.entity.User;
 import com.maship.bms.common.req.LoginReq;
 import com.maship.bms.service.UserService;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,6 +29,10 @@ public class UserServiceImpl implements UserService {
   @Resource
   private PasswordEncoder passwordEncoder;
   @Resource
+  private BmsUserDetailsService bmsUserDetailsService;
+  @Resource
+  private JwtTokenUtil jwtTokenUtil;
+  @Resource
   private UserDao userDao;
 
   @Override
@@ -30,11 +42,19 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public boolean login(final LoginReq req) {
-    Optional<User> optionalUser = query(req.getUsername());
-    return optionalUser.map(u ->
-        // 数据库中该用户和请求体中的密码匹配
-        passwordEncoder.matches(req.getPassword(), u.getPassword())
-    ).orElse(false);
+  public String login(final LoginReq req) {
+    UserDetails userDetails = bmsUserDetailsService.loadUserByUsername(req.getUsername());
+    // 数据库中该用户和请求体中的密码匹配
+    if (passwordEncoder.matches(req.getPassword(), userDetails.getPassword())) {
+      bmsUserDetailsService.auth(userDetails);
+      return jwtTokenUtil.generateToken(userDetails);
+    } else {
+      throw new BadCredentialsException("密码不正确");
+    }
+  }
+
+  @Override
+  public List<Permission> listPermission(Long userId) {
+    return userDao.listPermission(userId);
   }
 }

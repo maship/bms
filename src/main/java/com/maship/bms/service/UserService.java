@@ -1,8 +1,10 @@
 package com.maship.bms.service;
 
+import com.maship.bms.model.entity.Permission;
 import com.maship.bms.model.entity.User;
 import com.maship.bms.common.req.LoginReq;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,9 +22,16 @@ public interface UserService {
   Optional<User> query(String username);
 
   /**
-   * 登录
+   * 登录 成功返回token
    * @param req
    * @return
    */
-  boolean login(LoginReq req);
+  String login(LoginReq req);
+
+  /**
+   * 查询用户权限
+   * @param userId
+   * @return
+   */
+  List<Permission> listPermission(Long userId);
 }
