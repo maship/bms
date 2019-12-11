@@ -2,22 +2,34 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!-- 数据库驱动 -->
-    <!--<properties resource="application.properties" />-->
+    <properties resource="generatorConfig.properties" />
     <!-- 指定数据连接驱动jar地址 -->
     <!--<classPathEntry location="${driverPath}" />-->
     <context id="context" targetRuntime="MyBatis3Simple">
-        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
 
-        <!-- 去掉生成出来的代码的注解 -->
-        <commentGenerator>
-            <property name="suppressAllComments" value="true" />
-            <property name="suppressDate" value="true" />
+        <!-- 为模型生成序列化方法-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>-->
+        <!--生成mapper.xml时覆盖原文件-->
+        <!--<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />-->
+
+        <commentGenerator type="com.maship.bms.MybatisCommentGenerator">
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
         </commentGenerator>
 
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://132.232.80.206:3316/bms"
-                        userId="root" password="123">
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}" password="${jdbc.password}">
+            <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
+            <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -30,17 +42,21 @@
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置 -->
-        <!--<sqlMapGenerator targetPackage="com.maship.bms.model.mapping"-->
-        <!--                 targetProject="src/main/java">-->
+        <!--<sqlMapGenerator targetPackage="com.maship.bms.model.mapper"-->
+        <!--                 targetProject="src/main/resources">-->
         <!--    <property name="enableSubPackages" value="true" />-->
         <!--</sqlMapGenerator>-->
         <!-- 生成DAO的包名和位置 -->
-        <!--<javaClientGenerator type="XMLMAPPER"-->
-        <!--                     targetPackage="com.maship.bms.model.dao" targetProject="src/main/java">-->
-        <!--    <property name="enableSubPackages" value="true" />-->
-        <!--</javaClientGenerator>-->
+        <!--XMLMAPPER：生成的对象是 MyBatis 3.x 映射器基础结构的 Java接口和XML映射文件。-->
+        <!--ANNOTATEDMAPPER：生成的对象是 MyBatis 3.x 映射器基础结构的Java接口（使用注解），无XML文件-->
+        <javaClientGenerator type="ANNOTATEDMAPPER"
+                             targetPackage="com.maship.bms.model.dao.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--生成全部表tableName设为%-->
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名 -->
-        <table tableName="permission" domainObjectName="Permission"/>
+        <table tableName="user_log" domainObjectName="UserLog"/>
 
     </context>
 </generatorConfiguration>

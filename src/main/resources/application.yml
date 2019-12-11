@@ -14,10 +14,10 @@ mybatis:
 
 spring:
   datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://132.232.80.206:3316/bms?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: 123
-    url: jdbc:mysql://132.232.80.206:3316/bms?useUnicode=true&characterEncoding=utf8&useSSL=false
-    driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       # 下面为连接池的补充设置，应用到上面所有数据源中

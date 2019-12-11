@@ -41,8 +41,8 @@ CREATE TABLE `user_log`
 
 
 
-DROP TABLE IF EXISTS `ums_role`;
-CREATE TABLE `ums_role`
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role`
 (
     `id`          bigint primary key                       NOT NULL AUTO_INCREMENT,
     `name`        varchar(128)                             NOT NULL COMMENT '名称',
@@ -56,10 +56,10 @@ CREATE TABLE `ums_role`
   AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8mb4 COMMENT ='后台用户角色表';
 
-INSERT INTO `ums_role` VALUES (1, '商品管理员', '商品管理员', 0, '2018-09-30 15:46:11', 0, 0);
-INSERT INTO `ums_role` VALUES (2, '商品分类管理员', '商品分类管理员', 0, '2018-09-30 15:53:45', 0, 0);
-INSERT INTO `ums_role` VALUES (3, '商品类型管理员', '商品类型管理员', 0, '2018-09-30 15:53:56', 0, 0);
-INSERT INTO `ums_role` VALUES (4, '品牌管理员', '品牌管理员', 0, '2018-09-30 15:54:12', 0, 0);
+INSERT INTO `role` VALUES (1, '商品管理员', '商品管理员', 0, '2018-09-30 15:46:11', 0, 0);
+INSERT INTO `role` VALUES (2, '商品分类管理员', '商品分类管理员', 0, '2018-09-30 15:53:45', 0, 0);
+INSERT INTO `role` VALUES (3, '商品类型管理员', '商品类型管理员', 0, '2018-09-30 15:53:56', 0, 0);
+INSERT INTO `role` VALUES (4, '品牌管理员', '品牌管理员', 0, '2018-09-30 15:54:12', 0, 0);
 
 
 

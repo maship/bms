@@ -19,6 +19,12 @@ public interface UserDao {
   @Select("select * from `user` where username = #{username} limit 1")
   User query(@Param("username") String username);
 
-  @Select("select p.* from permission p join user_permission up on p.id = up.permission_id where up.user_id = #{userId}")
+  @Select({
+      "select p.* from user_role ur ",
+      "join `role` r on ur.role_id = r.id ",
+      "join role_permission rp on rp.role_id = r.id  ",
+      "join permission p on p.id = rp.permission_id ",
+      "where ur.user_id = #{userId}"
+  })
   List<Permission> listPermission(@Param("userId") Long userId);
 }

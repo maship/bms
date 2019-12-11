@@ -12,6 +12,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
 
@@ -34,14 +37,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Resource
   private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
 
+  private static final String[] AUTH_WHITELIST = {
+      // login
+      "/user/login",
+      // -- swagger ui
+      "/swagger-resources/**",
+      "/swagger-ui.html",
+      "/v2/api-docs",
+      "/webjars/**"
+  };
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // 禁用跨域请求限制
     http.csrf().disable();
     // 登录鉴权
     http.authorizeRequests()
-        .antMatchers("/user/login").permitAll()
-        .antMatchers(HttpMethod.OPTIONS).permitAll()  // 跨域请求会先进行一次options请求
+        .antMatchers(AUTH_WHITELIST).permitAll()
+        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // 跨域请求会先进行一次options请求
         .anyRequest().authenticated();
     // JWT filter
     http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -62,6 +75,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  /**
+   * 允许跨域调用的过滤器
+   */
+  @Bean
+  public CorsFilter corsFilter() {
+    CorsConfiguration config = new CorsConfiguration();
+    //允许所有域名进行跨域调用
+    config.addAllowedOrigin("*");
+    //允许跨越发送cookie
+    config.setAllowCredentials(true);
+    //放行全部原始头信息
+    config.addAllowedHeader("*");
+    //允许所有请求方法跨域调用
+    config.addAllowedMethod("*");
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return new CorsFilter(source);
   }
 
 }
