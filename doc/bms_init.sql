@@ -123,7 +123,7 @@ CREATE TABLE `user_permission`
     `id`            bigint primary key NOT NULL AUTO_INCREMENT,
     `user_id`       bigint             NOT NULL,
     `permission_id` bigint             NOT NULL,
-    `type`          int(1) DEFAULT NULL
+    `plus`          int(1) DEFAULT 1   NOT NULL COMMENT '是否为加权限:0(false);1(true)'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='后台用户和权限关系表(除角色中定义的权限以外的加减权限)';
 

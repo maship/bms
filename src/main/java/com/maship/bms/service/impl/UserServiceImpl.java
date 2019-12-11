@@ -15,8 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Clint
@@ -55,6 +55,14 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<Permission> listPermission(Long userId) {
-    return userDao.listPermission(userId);
+    // 去重
+    return userDao.listPermission(userId).stream().collect(
+        Collectors.collectingAndThen(
+            Collectors.toCollection(() ->
+                new TreeSet<>(Comparator.comparing(Permission::getId))
+            ),
+            ArrayList::new
+        )
+    );
   }
 }
