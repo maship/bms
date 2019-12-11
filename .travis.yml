@@ -11,7 +11,7 @@ cache:
 
 # install安装，安装任何所需的依赖
 install:
-  - sh build.sh
+  - ./build.sh
 
 # script脚本，运行构建脚本
 script:
