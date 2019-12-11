@@ -11,7 +11,8 @@ serviceName=bms
 harbor="docker.io/maship"
 echo -e "\033[32m----- build $serviceName start -----\033[0m"
 
-gid=$(git rev-parse --short=7  HEAD)
+#gid=$(git rev-parse --short=7  HEAD)
+git=latest
 echo "short commit id: $gid"
 
 echo -e "\033[32m----- start mvn package -----\033[0m"
