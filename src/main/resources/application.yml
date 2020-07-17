@@ -15,7 +15,7 @@ mybatis:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://132.232.80.206:3316/bms?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/bms?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: 123
     type: com.alibaba.druid.pool.DruidDataSource
