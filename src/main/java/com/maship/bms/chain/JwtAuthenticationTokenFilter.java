@@ -1,5 +1,6 @@
 package com.maship.bms.chain;
 
+import com.maship.bms.config.JwtConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,16 +30,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
   @Resource
   private JwtTokenUtil jwtTokenUtil;
 
-  @Value("${jwt.tokenHeader}")
-  private String tokenHeader;
-  @Value("${jwt.tokenHead}")
-  private String tokenHead;
+  @Resource
+  private JwtConfig jwtConfig;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-    String authHeader = request.getHeader(tokenHeader);
-    if (authHeader != null && authHeader.startsWith(tokenHead)) {
-      String authToken = authHeader.substring(tokenHead.length());// The part after "Bearer "
+    String authHeader = request.getHeader(jwtConfig.getTokenHeader());
+    if (authHeader != null && authHeader.startsWith(jwtConfig.getTokenHead())) {
+      String authToken = authHeader.substring(jwtConfig.getTokenHead().length());// The part after "Bearer "
       String username = jwtTokenUtil.getUserNameFromToken(authToken);
 
       log.info("checking username:{}", username);

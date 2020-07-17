@@ -1,5 +1,6 @@
 package com.maship.bms;
 
+import com.maship.bms.config.JwtConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,10 @@ class BmsApplicationTests {
   @Resource
 	private PasswordEncoder passwordEncoder;
 
+
+	@Resource
+	private JwtConfig jwtConfig;
+
 	@Test
 	void contextLoads() {
 	}
@@ -21,4 +26,8 @@ class BmsApplicationTests {
 		System.out.println(passwordEncoder.encode("admin"));
 	}
 
+	@Test
+	void testYmlConfig() {
+		System.out.println(jwtConfig.getExpiration());
+	}
 }
