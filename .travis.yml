@@ -15,7 +15,7 @@ install:
 
 # script脚本，运行构建脚本
 script:
-  - mvn test
+  - mvn clean
 
 # 指定分支，只有指定的分支提交时才会运行脚本
 branches:
