@@ -6,7 +6,7 @@
 
 [//]: # (</p>)
 
-https://github.com/maship/bms/actions/workflows/manual.yml/badge.svg?branch=master
+![github workflow](https://github.com/maship/bms/actions/workflows/manual.yml/badge.svg?branch=master)
 
 ## 介绍
 BMS(back-end management system) 后端管理系统

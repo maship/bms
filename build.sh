@@ -21,7 +21,7 @@ mkdir docker/apps
 cp target/$serviceName.jar docker/apps/app.jar
 
 # docker 构建镜像
-cd docker
+cd docker || exit
 echo -e "\033[32m----- building image[$harbor/$serviceName:$gid] ... -----\033[0m"
 docker build -t $harbor/$serviceName:$gid .
 
