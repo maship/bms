@@ -1,9 +1,12 @@
 # BMS 
 
-<p>
-    <a href="https://travis-ci.org/maship/bms"><img src="https://travis-ci.org/maship/bms.svg?branch=master" alt="travis-ci"/></a>
-</p>
+[//]: # (<p>)
 
+[//]: # (    <a href="https://travis-ci.org/maship/bms"><img src="https://travis-ci.org/maship/bms.svg?branch=master" alt="travis-ci"/></a>)
+
+[//]: # (</p>)
+
+https://github.com/maship/bms/actions/workflows/manual.yml/badge.svg?branch=master
 
 ## 介绍
 BMS(back-end management system) 后端管理系统
