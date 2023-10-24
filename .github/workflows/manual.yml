@@ -21,13 +21,20 @@ jobs:
         os:
           - ubuntu-latest
     steps:
+#      git checkout
       - uses: actions/checkout@v4
-
-      - name: Cache multiple paths
-        uses: actions/cache@v3
+#      此工作流程将保存本地 Maven 存储库的内容，该存储库位于运行器主目录的 .m2 目录。 缓存密钥将是 pom.xml 的哈希内容，因此更改 pom.xml 会使缓存失效 。
+      - name: Setup JDK 8
+        uses: actions/setup-java@v3
         with:
-          path: $HOME/.m2/repository
-          key: '${{ runner.os }}-${{ hashFiles(''TODO'') }}'
+          distribution: 'temurin'
+          java-version: '8'
+          cache: maven
+#      - name: Cache multiple paths
+#        uses: actions/cache@v3
+#        with:
+#          path: $HOME/.m2/repository
+#          key: '${{ runner.os }}-${{ hashFiles(''TODO'') }}'
       - name: build
         run: sh build.sh
       - name: maven clean
