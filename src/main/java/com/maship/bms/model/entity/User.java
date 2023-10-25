@@ -1,5 +1,6 @@
 package com.maship.bms.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class User implements Serializable {
     private String username;
 
     @ApiModelProperty(value = "密码")
+    @JsonIgnore
     private String password;
 
     @ApiModelProperty(value = "头像")

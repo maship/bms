@@ -1,6 +1,7 @@
 #FROM openjdk:8-jdk-alpine
 # openjdk:8-jdk-alpine with font support
 # https://hub.docker.com/r/dquintela/openjdk-8-jdk-alpine/dockerfile
+# FROM caojialin/alpine-java8_server-jre_unlimited:latest
 FROM dquintela/openjdk-8-jdk-alpine
 COPY apps/app.jar app.jar
 COPY run.sh run.sh
